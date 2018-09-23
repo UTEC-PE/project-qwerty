@@ -1,1 +1,3 @@
-# project-qwerty
+# Projecto Algoritmos
+Guillermo Franco
+Alessia Yi
