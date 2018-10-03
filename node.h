@@ -15,6 +15,9 @@ class Node {
         N data;
         double x;
         double y;
+
+    public:
+      Node(N value):data(value){};
 };
 
 #endif
