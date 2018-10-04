@@ -2,22 +2,20 @@
 #define NODE_H
 
 template <typename G>
-class Node {
-    public:
-        typedef typename G::N N;
-        typedef typename G::E E;
-        typedef typename G::edge edge;
-        typedef typename G::EdgeSeq EdgeSeq;
+struct Node {
 
-        EdgeSeq edges;
+  typedef typename G::N N;
+  typedef typename G::E E;
+  typedef typename G::edge edge;
+  typedef typename G::EdgeSeq EdgeSeq;
 
-    private:
-        N data;
-        double x;
-        double y;
+  EdgeSeq edges;
 
-    public:
-      Node(N value):data(value){};
+  N data;
+  double x;
+  double y;
+
+  Node(N value):data(value){}
 };
 
 #endif
