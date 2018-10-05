@@ -142,11 +142,11 @@ class Graph {
 				cout << endl;
 			}
 
-			// ~Graph(){
-			// 	for (int i=0; i<nodes.size(); i++){
-			// 		removeNode((nodes[i]) -> getData());
-			// 	}
-			// }
+			~Graph(){
+				for (int i=0; i<nodes.size(); i++){
+					removeNode((nodes[i]) -> getData());
+				}
+			}
 
 };
 
