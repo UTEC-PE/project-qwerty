@@ -15,10 +15,10 @@ int main(int argc, char *argv[]) {
   Graph.imprimeNodes();
   Graph.insertEdge('A', 'B', 3, 1);
   Graph.imprimeEdges('A');
-  //Graph.removeEdge('A', 'B');
+  Graph.removeEdge('A', 'B');
   Graph.removeNode('C');
   Graph.imprimeNodes();
-  // Graph.imprimeEdges('A');
+  Graph.imprimeEdges('A');
 
 
   return EXIT_SUCCESS;
