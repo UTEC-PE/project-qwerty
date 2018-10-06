@@ -95,7 +95,7 @@ class Graph {
 					}
 				}
 				if (!exists){
-					cout << "No existe ";
+					cout << "No existe nodo ";
 				}
 			}
 
@@ -108,6 +108,7 @@ class Graph {
 								edge *tmp=(*ei);
 								delete tmp;
 								exists=true;
+								break;
 							}
 						}
 					}
@@ -116,12 +117,13 @@ class Graph {
 							if (((*ei) -> nodes[1]) -> getData()==nodo1){
 								edge *tmp=*ei;
 								delete tmp;
+								break;
 							}
 						}
 					}
 				}
 				if (!exists){
-					cout << "No existe";
+					cout << "No existe edge ";
 				}
 			}
 
@@ -143,11 +145,10 @@ class Graph {
 				cout << endl;
 			}
 
-			~Graph(){
-				for (ni=nodes.begin(); ni!=nodes.end(); ni++){
-					removeNode((*ni) -> getData());
-				}
-			}
+            ~Graph(){
+                vector<node*>().swap(nodes);
+            }
+
 
 };
 
