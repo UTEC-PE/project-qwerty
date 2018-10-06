@@ -1,6 +1,7 @@
 #ifndef GRAPH_H
 #define GRAPH_H
 
+#include <iostream>
 #include <vector>
 #include <list>
 
@@ -38,8 +39,8 @@ class Graph {
 
 			void insertNode(N name){
 				bool exists=false;
-				for (int i=0; i<nodes.size(); i++){
-					if (name==(nodes[i]) -> getData()){
+				for (ni=nodes.begin(); ni!=nodes.end(); ni++){
+					if (name==(*ni) -> getData()){
 						exists=true;
 					}
 				}
@@ -54,13 +55,13 @@ class Graph {
 				bool exists2=false;
 				node* tmp=nullptr;
 				node* tmp2=nullptr;
-				for (int i=0; i<nodes.size(); i++){
-					if (nodo1==(nodes[i]) -> getData()){
-						tmp=nodes[i];
+				for (ni=nodes.begin(); ni!=nodes.end(); ni++){
+					if (nodo1==(*ni) -> getData()){
+						tmp=*ni;
 						exists1=true;
 					}
-					if (nodo2==(nodes[i]) -> getData()){
-						tmp2=nodes[i];
+					if (nodo2==(*ni) -> getData()){
+						tmp2=*ni;
 						exists2=true;
 					}
 				}
@@ -76,20 +77,20 @@ class Graph {
 
 			void removeNode(N name){
 				bool exists=false;
-				for (int i=0; i<nodes.size(); i++){
-					if (name==(nodes[i]) -> getData()){
-						for (EdgeIte it=(nodes[i]) -> edges.begin(); it!=(nodes[i]) -> edges.end(); it++){
-							if ((*it) ->  getDir()==0){
-								for (EdgeIte it2=((*it) -> nodes[1]) -> edges.begin(); it2!=((*it) -> nodes[1]) -> edges.end(); it2++){
-									if (((*it2) -> nodes[1]) -> getData()==name){
-										removeEdge((((*it) -> nodes[1]) -> getData()), name);
+				for (ni=nodes.begin(); ni!=nodes.end(); ni++){
+					if (name==(*ni) -> getData()){
+						for (ei=(*ni) -> edges.begin(); ei!=(*ni) -> edges.end(); ei++){
+							if ((*ei) ->  getDir()==0){
+								for (EdgeIte ei2=((*ei) -> nodes[1]) -> edges.begin(); ei2!=((*ei) -> nodes[1]) -> edges.end(); ei2++){
+									if (((*ei2) -> nodes[1]) -> getData()==name){
+										removeEdge((((*ei) -> nodes[1]) -> getData()), name);
 									}
 								}
 							}
 						}
-						node* tmp=(nodes[i]);
+						node* tmp=(*ni);
 						delete tmp;
-						nodes.erase(nodes.begin()+i);
+						nodes.erase(ni);
 						exists=true;
 					}
 				}
@@ -100,20 +101,20 @@ class Graph {
 
 			void removeEdge(N nodo1, N nodo2){
 				bool exists=false;
-				for(int i=0; i<nodes.size(); i++){
-					if (nodo1==(nodes[i]) -> getData()){
-						for (EdgeIte it=(nodes[i]) -> edges.begin(); it!=(nodes[i]) -> edges.end(); it++){
-							if (((*it) -> nodes[1]) -> getData()==nodo2){
-								edge *tmp=(*it);
+				for(ni=nodes.begin(); ni!=nodes.end(); ni++){
+					if (nodo1==(*ni) -> getData()){
+						for (ei=(*ni) -> edges.begin(); ei!=(*ni) -> edges.end(); ei++){
+							if (((*ei) -> nodes[1]) -> getData()==nodo2){
+								edge *tmp=(*ei);
 								delete tmp;
 								exists=true;
 							}
 						}
 					}
-					if (nodo2==(nodes[i]) -> getData()){
-						for (EdgeIte it=(nodes[i]) -> edges.begin(); it!=(nodes[i]) -> edges.end(); it++){
-							if (((*it) -> nodes[1]) -> getData()==nodo1){
-								edge *tmp=*it;
+					if (nodo2==(*ni) -> getData()){
+						for (ei=(*ni) -> edges.begin(); ei!=(*ni) -> edges.end(); ei++){
+							if (((*ei) -> nodes[1]) -> getData()==nodo1){
+								edge *tmp=*ei;
 								delete tmp;
 							}
 						}
@@ -126,25 +127,25 @@ class Graph {
 
 			void imprimeNodes(){
 				cout << "Nodes: ";
-				for (int i=0; i<nodes.size(); i++){
-					cout << (nodes[i]) -> getData() << " ";
+				for (ni=nodes.begin(); ni!=nodes.end(); ni++){
+					cout << (*ni) -> getData() << " ";
 				}
 				cout << endl;
 			}
 
 			void imprimeEdges(N nodo){
 				cout << "Edges de " << nodo << ": ";
-				for (int i=0; i< nodes.size(); i++){
-					if (nodo==(nodes[i]) -> getData()){
-						cout << (nodes[i]) -> edges.size() << " ";
+				for (ni=nodes.begin(); ni!=nodes.end(); ni++){
+					if (nodo==(*ni) -> getData()){
+						cout << (*ni) -> edges.size() << " ";
 					}
 				}
 				cout << endl;
 			}
 
 			~Graph(){
-				for (int i=0; i<nodes.size(); i++){
-					removeNode((nodes[i]) -> getData());
+				for (ni=nodes.begin(); ni!=nodes.end(); ni++){
+					removeNode((*ni) -> getData());
 				}
 			}
 
