@@ -69,7 +69,7 @@ class Graph {
 					edge *arista1=new edge(tmp, tmp2, value, dir);
 					tmp -> edges.push_back(arista1);
 					if (!dir){
-						edge *arista2=new edge(tmp, tmp2, value, dir);
+						edge *arista2=new edge(tmp2, tmp, value, dir);
 						tmp2 -> edges.push_back(arista2);
 					}
 				}
@@ -79,23 +79,23 @@ class Graph {
 				bool exists=false;
 				for (ni=nodes.begin(); ni!=nodes.end(); ni++){
 					if (name==(*ni) -> getData()){
-						for (ei=(*ni) -> edges.begin(); ei!=(*ni) -> edges.end(); ei++){
-							if ((*ei) ->  getDir()==0){
-								for (EdgeIte ei2=((*ei) -> nodes[1]) -> edges.begin(); ei2!=((*ei) -> nodes[1]) -> edges.end(); ei2++){
-									if (((*ei2) -> nodes[1]) -> getData()==name){
-										removeEdge((((*ei) -> nodes[1]) -> getData()), name);
-									}
-								}
-							}
-						}
 						node* tmp=(*ni);
 						delete tmp;
 						nodes.erase(ni);
 						exists=true;
+						break;
+					}
+				}
+				for (ni=nodes.begin(); ni!=nodes.end(); ni++){
+					for (ei=(*ni) -> edges.begin(); ei!=(*ni) -> edges.end(); ei++) {
+						if ((*ei)->nodes[1]->getData() == name){
+							(*ni) -> edges.remove(*ei);
+							break;
+						}
 					}
 				}
 				if (!exists){
-					cout << "No existe nodo ";
+					cout << "No existe node ";
 				}
 			}
 
@@ -105,8 +105,7 @@ class Graph {
 					if (nodo1==(*ni) -> getData()){
 						for (ei=(*ni) -> edges.begin(); ei!=(*ni) -> edges.end(); ei++){
 							if (((*ei) -> nodes[1]) -> getData()==nodo2){
-								edge *tmp=(*ei);
-								delete tmp;
+								(*ni) -> edges.remove(*ei);
 								exists=true;
 								break;
 							}
@@ -115,8 +114,7 @@ class Graph {
 					if (nodo2==(*ni) -> getData()){
 						for (ei=(*ni) -> edges.begin(); ei!=(*ni) -> edges.end(); ei++){
 							if (((*ei) -> nodes[1]) -> getData()==nodo1){
-								edge *tmp=*ei;
-								delete tmp;
+								(*ni) -> edges.remove(*ei);
 								break;
 							}
 						}
