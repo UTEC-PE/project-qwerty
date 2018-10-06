@@ -143,9 +143,20 @@ class Graph {
 				cout << endl;
 			}
 
-            ~Graph(){
-                vector<node*>().swap(nodes);
-            }
+			void print(){
+					for(ni = nodes.begin(); ni != nodes.end(); ni++){
+						cout << (*ni)->getData() << ' ';
+						for(ei = (*ni)->edges.begin(); ei != (*ni)->edges.end(); ei++){
+							cout << (*ei)->getData() << ' ';
+						}
+						cout << endl;
+					}
+					cout << endl;
+				}
+
+      ~Graph(){
+          vector<node*>().swap(nodes);
+      }
 
 
 };
