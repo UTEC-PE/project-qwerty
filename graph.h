@@ -166,12 +166,13 @@ class Graph {
 					}
 					cout << endl;
 				}
-				if (dir){
-					ans = sumAristas/(sumNodos*(sumNodos-1));
-				}
-				else{
-					ans = (sumAristas)/(sumNodos*(sumNodos-1));
-				}
+
+				ans = (sumAristas)/(sumNodos*(sumNodos-1));
+				//Es  igual por que en no dirigido cuento todas las aristas que hay
+				//Habria el doble de aristas en la suma
+				//La diferencia en la ecuacion con la dirigida es que se multiplica por 2
+				//La division por 2 en la suma y la mult por 2 en la ecu se cancelan
+
 				if (ans > cota){
 					cout << "Es  denso" << endl;
 				}
