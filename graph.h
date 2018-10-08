@@ -154,6 +154,32 @@ class Graph {
 					cout << endl;
 				}
 
+			void denso(float cota){
+				bool dir = false;
+				int sumNodos = 0;
+				float sumAristas = 0;
+				float ans =0;
+				for(ni = nodes.begin(); ni != nodes.end(); ni++){
+					sumNodos+=1;
+					for(ei = (*ni)->edges.begin(); ei != (*ni)->edges.end(); ei++){
+						sumAristas+=(*ei) -> getData();
+					}
+					cout << endl;
+				}
+				if (dir){
+					ans = sumAristas/(sumNodos*(sumNodos-1));
+				}
+				else{
+					ans = (sumAristas)/(sumNodos*(sumNodos-1));
+				}
+				if (ans > cota){
+					cout << "Es  denso" << endl;
+				}
+				else{
+					cout << "Es disperso" << endl;
+				}
+			}
+
       ~Graph(){
           vector<node*>().swap(nodes);
       }

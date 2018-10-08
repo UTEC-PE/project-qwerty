@@ -13,12 +13,10 @@ int main(int argc, char *argv[]) {
   Graph.insertNode('B');
   Graph.insertNode('C');
   Graph.imprimeNodes();
-  Graph.insertEdge('A', 'B', 3, 1);
-  Graph.imprimeEdges('A');
-  Graph.removeEdge('A', 'B');
-  Graph.removeNode('C');
-  Graph.imprimeNodes();
-  Graph.imprimeEdges('A');
+  Graph.insertEdge('A', 'B', 1, 1);
+  Graph.insertEdge('A', 'C', 1, 1);
+  Graph.print();
+  Graph.denso(0.6);
 
 
   return EXIT_SUCCESS;
