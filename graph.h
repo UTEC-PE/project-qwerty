@@ -154,7 +154,7 @@ class Graph {
 				}
 			}
 
-			void denso(float cota){
+			bool denso(float cota){
 				int sumNodos = 0;
 				float sumAristas = 0;
 				float ans =0;
@@ -171,10 +171,10 @@ class Graph {
 				//La division por 2 en la suma y la mult por 2 en la ecu se cancelan
 
 				if (ans > cota){
-					cout << "Es denso, " << ans << endl;
+					return true;
 				}
 				else{
-					cout << "Es disperso, " << ans << endl;
+					return false;
 				}
 			}
 
