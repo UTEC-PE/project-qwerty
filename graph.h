@@ -144,29 +144,26 @@ class Graph {
 			}
 
 			void print(){
-					for(ni = nodes.begin(); ni != nodes.end(); ni++){
-						cout << (*ni)->getData() << ' ';
-						for(ei = (*ni)->edges.begin(); ei != (*ni)->edges.end(); ei++){
-							cout << (*ei)->getData() << ' ';
-						}
-						cout << endl;
+				cout << "Vertices / Aristas" << endl;
+				for(ni = nodes.begin(); ni != nodes.end(); ni++){
+					cout << (*ni)->getData() << ' ';
+					for(ei = (*ni)->edges.begin(); ei != (*ni)->edges.end(); ei++){
+						cout << (*ei)->getData() << ' ';
 					}
 					cout << endl;
 				}
+			}
 
 			void denso(float cota){
-				bool dir = false;
 				int sumNodos = 0;
 				float sumAristas = 0;
 				float ans =0;
 				for(ni = nodes.begin(); ni != nodes.end(); ni++){
 					sumNodos+=1;
 					for(ei = (*ni)->edges.begin(); ei != (*ni)->edges.end(); ei++){
-						sumAristas+=(*ei) -> getData();
+						sumAristas+=1;
 					}
-					cout << endl;
 				}
-
 				ans = (sumAristas)/(sumNodos*(sumNodos-1));
 				//Es  igual por que en no dirigido cuento todas las aristas que hay
 				//Habria el doble de aristas en la suma
@@ -174,10 +171,10 @@ class Graph {
 				//La division por 2 en la suma y la mult por 2 en la ecu se cancelan
 
 				if (ans > cota){
-					cout << "Es  denso" << endl;
+					cout << "Es denso, " << ans << endl;
 				}
 				else{
-					cout << "Es disperso" << endl;
+					cout << "Es disperso, " << ans << endl;
 				}
 			}
 
