@@ -5,15 +5,15 @@ Alessia Yi
 <br/>
 Funciones a implementar:
 <br/>
-  -Constructor y destructor
+  -Constructor y destructor(DONE)
   <br/>
-  -Insertar/Remover vertices y aristas
+  -Insertar/Remover vertices y aristas(DONE)
   <br/>
   -Buscar vertices y aristas
   <br/>
-  -Propiedades: Densidad (por tanto si el grafo es denso o disperso), tipo y grado de vertices, saber si es conexo, fuertemente conexo y bipartito
+  -Propiedades: Densidad (por tanto si el grafo es denso o disperso)(DONE), tipo y grado de vertices, saber si es conexo, fuertemente conexo y bipartito
   <br/>
-  -MST: Prim y Kruskal
+  -MST: Prim(NOT DONE) y Kruskal(DONE)
   <br/>
   -Busquedas: BFS (Anchura) y DFS (Profundidad)
 
