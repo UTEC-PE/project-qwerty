@@ -146,6 +146,7 @@ public:
 	}
 
 	void print(){
+    cout << "Vertices / Aristas" << endl;
 		for(ni = nodes.begin(); ni != nodes.end(); ni++){
 			cout << (*ni)->getData() << ' ';
 			for(ei = (*ni)->edges.begin(); ei != (*ni)->edges.end(); ei++){
@@ -153,7 +154,6 @@ public:
 			}
 			cout << endl;
 		}
-		cout << endl;
 	}
 
 	E kruskal(){
@@ -178,7 +178,6 @@ public:
 					}
 				}
 			}
-
 			DisjointSet<self> set(nodes);
 			int n = nodes.size() - 1;
 			cout << "Kruskal MST: \n";
@@ -198,10 +197,33 @@ public:
 					break;
 			}
 			return peso;
-
 		}
 		else
 			cout << "Grafo es direccionado\n";
+	}
+  
+  bool denso(float cota){
+	  int sumNodos = 0;
+		float sumAristas = 0;
+		float ans =0;
+		for(ni = nodes.begin(); ni != nodes.end(); ni++){
+			sumNodos+=1;
+			for(ei = (*ni)->edges.begin(); ei != (*ni)->edges.end(); ei++){
+				sumAristas+=1;
+			}
+		}
+		ans = (sumAristas)/(sumNodos*(sumNodos-1));
+		//Es  igual por que en no dirigido cuento todas las aristas que hay
+		//Habria el doble de aristas en la suma
+		//La diferencia en la ecuacion con la dirigida es que se multiplica por 2
+		//La division por 2 en la suma y la mult por 2 en la ecu se cancelan
+
+		if (ans > cota){
+			return true;
+		}
+		else{
+			return false;
+		}
 	}
 	
 	~Graph(){
