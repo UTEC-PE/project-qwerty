@@ -9,7 +9,7 @@ Funciones a implementar:
   <br/>
   -Insertar/Remover vertices y aristas(DONE)
   <br/>
-  -Buscar vertices y aristas
+  -Buscar vertices y aristas(DONE)
   <br/>
   -Propiedades: Densidad (por tanto si el grafo es denso o disperso)(DONE), tipo y grado de vertices(~DONE), saber si es conexo(~DONE), fuertemente conexo y bipartito
   <br/>
