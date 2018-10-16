@@ -13,7 +13,7 @@ Funciones a implementar:
   <br/>
   -Propiedades: Densidad (por tanto si el grafo es denso o disperso)(DONE), tipo y grado de vertices(~DONE), saber si es conexo(~DONE), fuertemente conexo y bipartito
   <br/>
-  -MST: Prim(NOT DONE) y Kruskal(DONE)
+  -MST: Prim(DONE) y Kruskal(DONE)
   <br/>
   -Busquedas: BFS (Anchura) y DFS (Profundidad)
 
