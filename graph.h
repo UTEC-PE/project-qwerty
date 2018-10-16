@@ -201,7 +201,7 @@ public:
 		else
 			cout << "Grafo es direccionado\n";
 	}
-  
+
   E prim(N start) {
       if ((*((nodes[0]) -> edges.begin())) -> getDir() == 0) {
           NodeSeq inMST;
@@ -250,9 +250,9 @@ public:
       else
           cout << "Grafo es direccionado\n";
   }
-  
-  bool denso(float cota){
-	  int sumNodos = 0;
+
+	bool denso(float cota){
+		int sumNodos = 0;
 		float sumAristas = 0;
 		float ans =0;
 		for(ni = nodes.begin(); ni != nodes.end(); ni++){
@@ -273,6 +273,100 @@ public:
 		else{
 			return false;
 		}
+		cout << endl;
+	}
+
+	void grado(){
+		int gradoTotal=0;
+		int gradoEntrada=0;
+		int gradoSalida=0;
+		bool dir=false;
+		for(ni = nodes.begin(); ni != nodes.end(); ni++){
+			for(ei = (*ni)->edges.begin(); ei != (*ni)->edges.end(); ei++){
+				if ((*ei) -> getDir() == 1){
+					dir=true;
+					gradoSalida+=1;
+				}
+				gradoTotal+=1;
+			}
+			if (dir){
+				for (NodeIte ni1 = nodes.begin(); ni1 != nodes.end(); ni1++){
+					for(EdgeIte ei1 = (*ni1)->edges.begin(); ei1 != (*ni1)->edges.end(); ei1++){
+						if ((*ei1) -> nodes[1]==(*ni)){
+							gradoEntrada+=1;
+							gradoTotal+=1;
+						}
+					}
+				}
+				cout << "Grado de entrada de " << (*ni) -> getData() << " es: " << gradoEntrada << endl;//falta
+				cout << "Grado de salida de " << (*ni) -> getData() << " es: " << gradoSalida << endl;
+				gradoSalida=0;
+				gradoEntrada=0;
+			}
+			cout << "Grado total de " << (*ni) -> getData() << " es: " << gradoTotal << endl;
+			gradoTotal=0;
+			cout << endl;
+		}
+	}
+
+	void fuente_hundido(){
+		vector<N> fuente;
+		vector<N> hundido;
+		bool nodo2=false;
+		int sumAristas=0;
+		for(ni = nodes.begin(); ni != nodes.end(); ni++){
+			for(ei = (*ni)->edges.begin(); ei != (*ni)->edges.end(); ei++){
+				sumAristas+=1;
+			}
+			for (NodeIte ni1 = nodes.begin(); ni1 != nodes.end(); ni1++){
+				for(EdgeIte ei1 = (*ni1)->edges.begin(); ei1 != (*ni1)->edges.end(); ei1++){
+					if ((*ei1) -> nodes[1]==(*ni)){
+						nodo2=true;
+					}
+				}
+			}
+			if (sumAristas==0 && nodo2){
+				hundido.push_back((*ni) -> getData());
+			}
+			if (sumAristas>0 && !nodo2){
+				fuente.push_back((*ni) -> getData());
+			}
+			sumAristas=0;
+			nodo2=false;
+		}
+		cout << "Hundidos: ";
+		for (typename vector<N>::iterator it = hundido.begin(); it != hundido.end(); ++it){
+			cout << (*it) << " " ;
+		}
+		cout << endl;
+		cout << "Fuente: ";
+		for (typename vector<N>::iterator it = fuente.begin(); it != fuente.end(); ++it){
+			cout << (*it) << " " ;
+		}
+		cout << endl;
+	}
+
+	bool conexo(){
+		bool salida=false;
+		bool entrada=false;
+		for(ni = nodes.begin(); ni != nodes.end(); ni++){
+			for(ei = (*ni)->edges.begin(); ei != (*ni)->edges.end(); ei++){
+				salida=true;
+			}
+			for (NodeIte ni1 = nodes.begin(); ni1 != nodes.end(); ni1++){
+				for(EdgeIte ei1 = (*ni1)->edges.begin(); ei1 != (*ni1)->edges.end(); ei1++){
+					if ((*ei1) -> nodes[1]==(*ni)){
+						entrada=true;
+					}
+				}
+			}
+			if (!salida && !entrada){
+				return false;
+			}
+			salida=false;
+			entrada=false;
+		}
+		return true;
 	}
 	
 	~Graph(){
@@ -284,4 +378,3 @@ typedef Graph<Traits> graph;
 
 
 #endif
-
