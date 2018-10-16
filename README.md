@@ -11,7 +11,7 @@ Funciones a implementar:
   <br/>
   -Buscar vertices y aristas
   <br/>
-  -Propiedades: Densidad (por tanto si el grafo es denso o disperso)(DONE), tipo y grado de vertices, saber si es conexo, fuertemente conexo y bipartito
+  -Propiedades: Densidad (por tanto si el grafo es denso o disperso)(DONE), tipo y grado de vertices(~DONE), saber si es conexo(~DONE), fuertemente conexo y bipartito
   <br/>
   -MST: Prim(NOT DONE) y Kruskal(DONE)
   <br/>
