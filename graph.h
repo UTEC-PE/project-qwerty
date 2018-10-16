@@ -202,6 +202,55 @@ public:
 			cout << "Grafo es direccionado\n";
 	}
   
+  E prim(N start) {
+      if ((*((nodes[0]) -> edges.begin())) -> getDir() == 0) {
+          NodeSeq inMST;
+          E peso = 0;
+          vector<edge*> pEdges;
+          int n = 0;
+          for (ni = nodes.begin(); ni != nodes.end(); ni++) {
+              if ((*ni)->getData() == start) {
+                  inMST.push_back(*ni);
+                  break;
+              }
+              else
+                  cout << "Nodo no existe\n";
+          }
+          while (n+1 < nodes.size() && inMST.size() > 0) {
+              for (ei = (*(inMST.begin()+n)) -> edges.begin(); ei != (*(inMST.begin()+n)) -> edges.end(); ei++)
+                  pEdges.push_back(*ei);
+
+              sort(pEdges.begin(),pEdges.end(),[](edge* edge1, edge* edge2){
+                  return (edge1->getData() < edge2->getData());
+              });
+
+              for (int i = 0; i < pEdges.size(); i++){
+                  bool exists = false;
+                  for (int j = 0; j < inMST.size(); j++){
+                      if (pEdges[i]->nodes[1] == inMST[j]){
+                          exists = true;
+                          break;
+                      }
+                  }
+                  if (exists){
+                      pEdges.erase(pEdges.begin()+i);
+                      i--;
+                  }
+                  else{
+                      cout << pEdges[i]->nodes[0]->getData() << " - " << pEdges[i]->nodes[1]->getData() << "    (" << pEdges[i] -> getData() << ")" << endl;
+                      peso += pEdges[i]->getData();
+                      inMST.push_back(pEdges[i]->nodes[1]);
+                      n++;
+                      break;
+                  }
+              }
+          }
+          return peso;
+      }
+      else
+          cout << "Grafo es direccionado\n";
+  }
+  
   bool denso(float cota){
 	  int sumNodos = 0;
 		float sumAristas = 0;
@@ -229,7 +278,6 @@ public:
 	~Graph(){
 		vector<node*>().swap(nodes);
 	}
-
 };
 
 typedef Graph<Traits> graph;
