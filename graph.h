@@ -368,7 +368,31 @@ public:
 		}
 		return true;
 	}
-	
+
+	bool findNode(N node){
+		for(ni = nodes.begin(); ni != nodes.end(); ni++){
+			if ((*ni) -> getData() == node){
+				return true;
+				break;
+			}
+		}
+		return false;
+	}
+
+	bool findEdge (N nodo1, N nodo2){
+		for(ni = nodes.begin(); ni != nodes.end(); ni++){
+			if ((*ni) -> getData() == nodo1){
+				for(ei = (*ni)->edges.begin(); ei != (*ni)->edges.end(); ei++){
+					if  ((*ei) -> nodes[1] -> getData() == nodo2){
+						return true;
+						break;
+					}
+				}
+			}
+		}
+		return false;
+	}
+
 	~Graph(){
 		vector<node*>().swap(nodes);
 	}
