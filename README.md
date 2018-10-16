@@ -15,5 +15,5 @@ Funciones a implementar:
   <br/>
   -MST: Prim(DONE) y Kruskal(DONE)
   <br/>
-  -Busquedas: BFS (Anchura) y DFS (Profundidad)
+  -Busquedas: BFS (Anchura) y DFS (Profundidad)--(proceso)
 
