@@ -23,7 +23,7 @@ int main(int argc, char *argv[]) {
 
   Graph.print();
   cout << Graph.denso(0.6)<< endl;
-  Graph.BFS('C');
+  Graph.BFS('A');
   cout << Graph.findNode('C') << endl;
   cout << Graph.findEdge('A', 'M') << endl;
 
