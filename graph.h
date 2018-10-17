@@ -401,41 +401,77 @@ public:
 	}
 
 	void BFS(N vertice){
-			vector<N> visitados;
-			vector<N> myqueue;
-			myqueue.push_back(vertice);
-			while (myqueue.size() != 0){
-				for(ni = nodes.begin(); ni != nodes.end(); ni++){
-					if ((*ni) -> getData() == myqueue.front()){
-						myqueue.erase(myqueue.begin());
-						for(ei = (*ni)->edges.begin(); ei != (*ni)->edges.end(); ei++){
-							if (find (myqueue.begin(), myqueue.end(), (*ei) -> nodes[1] -> getData()) == myqueue.end() &&
-							find (visitados.begin(), visitados.end(), (*ei) -> nodes[1] -> getData()) == visitados.end()){
-								myqueue.push_back((*ei) -> nodes[1] -> getData());
-							}
+		vector<N> visitados;
+		vector<N> myqueue;
+		myqueue.push_back(vertice);
+		while (myqueue.size() != 0){
+			for(ni = nodes.begin(); ni != nodes.end(); ni++){
+				if ((*ni) -> getData() == myqueue.front()){
+					myqueue.erase(myqueue.begin());
+					for(ei = (*ni)->edges.begin(); ei != (*ni)->edges.end(); ei++){
+						if (find (myqueue.begin(), myqueue.end(), (*ei) -> nodes[1] -> getData()) == myqueue.end() &&
+						find (visitados.begin(), visitados.end(), (*ei) -> nodes[1] -> getData()) == visitados.end()){
+							myqueue.push_back((*ei) -> nodes[1] -> getData());
 						}
-						for (typename vector<N>::iterator it = myqueue.begin(); it != myqueue.end(); ++it){
-							if (find (visitados.begin(), visitados.end(), (*it)) == visitados.end()){
-								visitados.push_back((*ni)->getData());
-								visitados.push_back((*it));
-							}
+					}
+					for (typename vector<N>::iterator it = myqueue.begin(); it != myqueue.end(); ++it){
+						if (find (visitados.begin(), visitados.end(), (*it)) == visitados.end()){
+							visitados.push_back((*ni)->getData());
+							visitados.push_back((*it));
 						}
 					}
 				}
-				int i=0;
-				cout << "Visitados: ";
-				for (typename vector<N>::iterator it = visitados.begin(); it != visitados.end(); ++it){
-					if (i%2){
-						cout << (*it) << " " ;
-					}
-					else{
-						cout << (*it) << "" ;
-					}
-					i++;
-				}
-				cout << endl;
 			}
+			int i=0;
+			cout << "Visitados: ";
+			for (typename vector<N>::iterator it = visitados.begin(); it != visitados.end(); ++it){
+				if (i%2){
+					cout << (*it) << " " ;
+				}
+				else{
+					cout << (*it) << "" ;
+				}
+				i++;
+			}
+			cout << endl;
+		}
+	}
 
+	void DFS(N vertice){
+		vector<N> visitados;
+		vector<N> mystack;
+		mystack.insert(mystack.begin(),vertice);
+		while (mystack.size() != 0){
+			for(ni = nodes.begin(); ni != nodes.end(); ni++){
+				if ((*ni) -> getData() == mystack.front()){
+					mystack.erase(mystack.begin());
+					for(ei = (*ni)->edges.begin(); ei != (*ni)->edges.end(); ei++){
+						if (find (mystack.begin(), mystack.end(), (*ei) -> nodes[1] -> getData()) == mystack.end() &&
+						find (visitados.begin(), visitados.end(), (*ei) -> nodes[1] -> getData()) == visitados.end()){
+							mystack.push_back((*ei) -> nodes[1] -> getData());
+						}
+					}
+					for (typename vector<N>::iterator it = mystack.begin(); it != mystack.end(); ++it){
+						if (find (visitados.begin(), visitados.end(), (*it)) == visitados.end()){
+							visitados.push_back((*ni)->getData());
+							visitados.push_back((*it));
+						}
+					}
+				}
+			}
+			int i=0;
+			cout << "Visitados: ";
+			for (typename vector<N>::iterator it = visitados.begin(); it != visitados.end(); ++it){
+				if (i%2){
+					cout << (*it) << " " ;
+				}
+				else{
+					cout << (*it) << "" ;
+				}
+				i++;
+			}
+			cout << endl;
+		}
 	}
 
 	~Graph(){
