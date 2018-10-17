@@ -280,34 +280,29 @@ public:
 	}
 
 	void grado(){
-		int gradoTotal=0;
-		int gradoEntrada=0;
-		int gradoSalida=0;
+
 		bool dir=false;
 		for(ni = nodes.begin(); ni != nodes.end(); ni++){
-			for(ei = (*ni)->edges.begin(); ei != (*ni)->edges.end(); ei++){
-				if ((*ei) -> getDir() == 1){
-					dir=true;
-					gradoSalida+=1;
-				}
-				gradoTotal+=1;
-			}
-			if (dir){
+			int gradoTotal=0;
+			int gradoEntrada=0;
+			int gradoSalida=0;
+			if (*((*ni)->edges.begin())->getDir() == 0)
+				gradoTotal = (*ni)->edges.size();
+			else{
+				gradoSalida = (*ni)->edges.size();
+				dir = true;
 				for (NodeIte ni1 = nodes.begin(); ni1 != nodes.end(); ni1++){
-					for(EdgeIte ei1 = (*ni1)->edges.begin(); ei1 != (*ni1)->edges.end(); ei1++){
-						if ((*ei1) -> nodes[1]==(*ni)){
+					for(ei = (*ni1)->edges.begin(); ei != (*ni1)->edges.end(); ei++){
+						if ((*ei) -> nodes[1]==(*ni)){
 							gradoEntrada+=1;
-							gradoTotal+=1;
 						}
 					}
 				}
+				gradoTotal = gradoEntrada + gradoSalida;
 				cout << "Grado de entrada de " << (*ni) -> getData() << " es: " << gradoEntrada << endl;//falta
 				cout << "Grado de salida de " << (*ni) -> getData() << " es: " << gradoSalida << endl;
-				gradoSalida=0;
-				gradoEntrada=0;
 			}
 			cout << "Grado total de " << (*ni) -> getData() << " es: " << gradoTotal << endl;
-			gradoTotal=0;
 			cout << endl;
 		}
 	}
