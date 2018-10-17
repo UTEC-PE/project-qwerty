@@ -281,30 +281,39 @@ public:
 
 	void grado(){
 
-		bool dir=false;
-		for(ni = nodes.begin(); ni != nodes.end(); ni++){
-			int gradoTotal=0;
-			int gradoEntrada=0;
-			int gradoSalida=0;
-			if ((*((*ni)->edges.begin()))->getDir() == 0)
-				gradoTotal = (*ni)->edges.size();
-			else{
-				gradoSalida = (*ni)->edges.size();
-				dir = true;
-				for (NodeIte ni1 = nodes.begin(); ni1 != nodes.end(); ni1++){
-					for(ei = (*ni1)->edges.begin(); ei != (*ni1)->edges.end(); ei++){
-						if ((*ei) -> nodes[1]==(*ni)){
-							gradoEntrada+=1;
-						}
-					}
-				}
-				gradoTotal = gradoEntrada + gradoSalida;
-				cout << "Grado de entrada de " << (*ni) -> getData() << " es: " << gradoEntrada << endl;//falta
-				cout << "Grado de salida de " << (*ni) -> getData() << " es: " << gradoSalida << endl;
-			}
-			cout << "Grado total de " << (*ni) -> getData() << " es: " << gradoTotal << endl;
-			cout << endl;
-		}
+		bool dir;
+        	for (ni = nodes.begin(); ni != nodes.end(); ni++){
+            		if ((*ni)->edges.size() > 0){
+               			if ((*((*ni)->edges.begin()))->getDir() == 1)
+                    			dir = true;
+                		else
+                    			dir = false;
+                		break;
+            		}
+        	}
+        	for(ni = nodes.begin(); ni != nodes.end(); ni++){
+            	int gradoTotal=0;
+            	int gradoEntrada=0;
+            	int gradoSalida=0;
+            	if (!dir)
+                	gradoTotal = (*ni)->edges.size();
+            	else{
+                	gradoSalida = (*ni)->edges.size();
+                	dir = true;
+                	for (NodeIte ni1 = nodes.begin(); ni1 != nodes.end(); ni1++){
+                    		for(ei = (*ni1)->edges.begin(); ei != (*ni1)->edges.end(); ei++){
+                        		if ((*ei) -> nodes[1]==(*ni)){
+                            			gradoEntrada+=1;
+                        		}
+                    		}
+                	}
+                	gradoTotal = gradoEntrada + gradoSalida;
+                	cout << "Grado de entrada de " << (*ni) -> getData() << " es: " << gradoEntrada << endl;
+                	cout << "Grado de salida de " << (*ni) -> getData() << " es: " << gradoSalida << endl;
+            	}
+            	cout << "Grado total de " << (*ni) -> getData() << " es: " << gradoTotal << endl;
+            	cout << endl;
+        	}
 	}
 
 	void fuente_hundido(){
