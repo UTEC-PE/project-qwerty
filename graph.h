@@ -286,7 +286,7 @@ public:
 			int gradoTotal=0;
 			int gradoEntrada=0;
 			int gradoSalida=0;
-			if (*((*ni)->edges.begin())->getDir() == 0)
+			if ((*((*ni)->edges.begin()))->getDir() == 0)
 				gradoTotal = (*ni)->edges.size();
 			else{
 				gradoSalida = (*ni)->edges.size();
