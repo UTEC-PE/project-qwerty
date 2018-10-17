@@ -12,19 +12,21 @@ struct DisjointSet {
     typedef typename G::NodeSeq NodeSeq;
 
     NodeSeq parent;
-    int *rank;
+    NodeSeq nodes;
+    vector<int> rank;
     int size;
 
 
     DisjointSet(NodeSeq nodes):size(nodes.size()){
-        rank = new int[size];
         parent = nodes;
-        *rank = {0};
+        this->nodes = nodes;
+        for (int i = 0; i < size; i++)
+            rank.push_back(0);
     };
 
     int getPosition(node* nodo) {
         for (int i = 0; i < size; i++) {
-            if (nodo == parent[i])
+            if (nodo == nodes[i])
                 return i;
         }
     }

@@ -184,13 +184,13 @@ public:
 			for (typename vector<edge*>::iterator it = kEdges.begin(); it != kEdges.end(); it++) {
 				node* nodo1 = (*it) -> nodes[0];
 				node* nodo2 = (*it) -> nodes[1];
-				node* set1 = set.findParent(nodo1);
-				node* set2 = set.findParent(nodo2);
+				nodo1 = set.findParent(nodo1);
+				nodo2 = set.findParent(nodo2);
 
-				if (set1 != set2) {
+				if (nodo1 != nodo2) {
 					cout << (*nodo1).getData() << " - " << (*nodo2).getData() << "    (" << (*it) -> getData() << ")" << endl;
 					peso += (*it) -> getData();
-					set.mergeSet(set1, set2);
+					set.mergeSet(nodo1, nodo2);
 					--n;
 				}
 				if (n == 0)
