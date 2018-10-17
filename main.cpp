@@ -20,12 +20,14 @@ int main(int argc, char *argv[]) {
   Graph.insertEdge('A', 'C', 1, 1);
   Graph.insertEdge('C', 'E', 1, 1);
   Graph.insertEdge('D', 'E', 1, 1);
+  Graph.insertEdge('E', 'N', 1, 1);
 
   Graph.print();
   cout << Graph.denso(0.6)<< endl;
   Graph.BFS('A');
   cout << Graph.findNode('C') << endl;
   cout << Graph.findEdge('A', 'M') << endl;
+  Graph.fuente_hundido();
 
 
   return EXIT_SUCCESS;

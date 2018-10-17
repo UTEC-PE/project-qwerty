@@ -260,16 +260,14 @@ public:
 		float ans =0;
 		for(ni = nodes.begin(); ni != nodes.end(); ni++){
 			sumNodos+=1;
-			for(ei = (*ni)->edges.begin(); ei != (*ni)->edges.end(); ei++){
-				sumAristas+=1;
-			}
+			sumAristas+=(*ni) -> edges.size();
 		}
 		ans = (sumAristas)/(sumNodos*(sumNodos-1));
 		//Es  igual por que en no dirigido cuento todas las aristas que hay
 		//Habria el doble de aristas en la suma
 		//La diferencia en la ecuacion con la dirigida es que se multiplica por 2
 		//La division por 2 en la suma y la mult por 2 en la ecu se cancelan
-
+		cout << "Rpt: " << ans << endl;
 		if (ans > cota){
 			return true;
 		}
@@ -280,7 +278,6 @@ public:
 	}
 
 	void grado(){
-
 		bool dir;
         	for (ni = nodes.begin(); ni != nodes.end(); ni++){
             		if ((*ni)->edges.size() > 0){
@@ -319,12 +316,10 @@ public:
 	void fuente_hundido(){
 		vector<N> fuente;
 		vector<N> hundido;
-		bool nodo2=false;
-		int sumAristas=0;
 		for(ni = nodes.begin(); ni != nodes.end(); ni++){
-			for(ei = (*ni)->edges.begin(); ei != (*ni)->edges.end(); ei++){
-				sumAristas+=1;
-			}
+			bool nodo2=false;
+			int sumAristas=0;
+			sumAristas+=(*ni) -> edges.size();
 			for (NodeIte ni1 = nodes.begin(); ni1 != nodes.end(); ni1++){
 				for(EdgeIte ei1 = (*ni1)->edges.begin(); ei1 != (*ni1)->edges.end(); ei1++){
 					if ((*ei1) -> nodes[1]==(*ni)){
@@ -338,8 +333,6 @@ public:
 			if (sumAristas>0 && !nodo2){
 				fuente.push_back((*ni) -> getData());
 			}
-			sumAristas=0;
-			nodo2=false;
 		}
 		cout << "Hundidos: ";
 		for (typename vector<N>::iterator it = hundido.begin(); it != hundido.end(); ++it){
@@ -354,9 +347,9 @@ public:
 	}
 
 	bool conexo(){
-		bool salida=false;
-		bool entrada=false;
 		for(ni = nodes.begin(); ni != nodes.end(); ni++){
+			bool salida=false;
+			bool entrada=false;
 			for(ei = (*ni)->edges.begin(); ei != (*ni)->edges.end(); ei++){
 				salida=true;
 			}
@@ -370,8 +363,6 @@ public:
 			if (!salida && !entrada){
 				return false;
 			}
-			salida=false;
-			entrada=false;
 		}
 		return true;
 	}
