@@ -407,15 +407,12 @@ public:
 								myqueue.push_back((*ei) -> nodes[1] -> getData());
 							}
 						}
-						cout << "Queue: ";
 						for (typename vector<N>::iterator it = myqueue.begin(); it != myqueue.end(); ++it){
-							cout << (*it) << " " ;
 							if (find (visitados.begin(), visitados.end(), (*it)) == visitados.end()){
 								visitados.push_back((*ni)->getData());
 								visitados.push_back((*it));
 							}
 						}
-						cout << endl;
 					}
 				}
 				int i=0;
