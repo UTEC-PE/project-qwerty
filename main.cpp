@@ -12,16 +12,20 @@ int main(int argc, char *argv[]) {
   Graph.insertNode('A');
   Graph.insertNode('B');
   Graph.insertNode('C');
+  Graph.insertNode('D');
+  Graph.insertNode('E');
+  Graph.insertNode('N');
   Graph.imprimeNodes();
-  Graph.insertEdge('A', 'B', 1, 0);
-  Graph.insertEdge('A', 'C', 1, 0);
+  Graph.insertEdge('A', 'B', 1, 1);
+  Graph.insertEdge('A', 'C', 1, 1);
+  Graph.insertEdge('C', 'E', 1, 1);
+  Graph.insertEdge('D', 'E', 1, 1);
+
   Graph.print();
-  Graph.denso(0.6);
-  Graph.fuente_hundido();
-  Graph.BFS('B');
-  Graph.findNode('A');
-  cout << Graph.findNode('C');
-  cout << Graph.findEdge('A', 'M');
+  cout << Graph.denso(0.6)<< endl;
+  Graph.BFS('C');
+  cout << Graph.findNode('C') << endl;
+  cout << Graph.findEdge('A', 'M') << endl;
 
 
   return EXIT_SUCCESS;

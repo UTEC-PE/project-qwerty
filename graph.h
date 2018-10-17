@@ -393,6 +393,48 @@ public:
 		return false;
 	}
 
+	void BFS(N vertice){
+			vector<N> visitados;
+			vector<N> myqueue;
+			visitados.push_back(vertice);
+			myqueue.push_back(vertice);
+			while (myqueue.size() != 0){
+				for(ni = nodes.begin(); ni != nodes.end(); ni++){
+					if ((*ni) -> getData() == myqueue.front()){
+						myqueue.erase(myqueue.begin());
+						for(ei = (*ni)->edges.begin(); ei != (*ni)->edges.end(); ei++){
+							if (find (myqueue.begin(), myqueue.end(), (*ei) -> nodes[1] -> getData()) != myqueue.end() &&
+							find (visitados.begin(), visitados.end(), (*ei) -> nodes[1] -> getData()) != visitados.end()){
+								cout << "TRUE";
+							}
+							else{
+								myqueue.push_back((*ei) -> nodes[1] -> getData());
+							}
+						}
+						cout << "Queue: ";
+						for (typename vector<N>::iterator it = myqueue.begin(); it != myqueue.end(); ++it){
+							cout << (*it) << " " ;
+							if (find (visitados.begin(), visitados.end(), (*it)) != visitados.end()){
+								cout << "--NOSE QUE PONER--";
+							}
+							else{
+								visitados.push_back((*it));
+							}
+						}
+						cout << endl;
+					}
+					// myqueue.erase(myqueue.begin());
+					// break;
+				}
+				cout << "Visitados: ";
+				for (typename vector<N>::iterator it = visitados.begin(); it != visitados.end(); ++it){
+					cout << (*it) << " " ;
+				}
+				cout << endl;
+			}
+
+	}
+
 	~Graph(){
 		vector<node*>().swap(nodes);
 	}
