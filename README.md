@@ -5,7 +5,7 @@ Alessia Yi
 <br/>
 Funciones a implementar:
 <br/>
-  -Constructor y destructor(DONE)
+  -Constructor y destructor(FALTA DE NODOS Y EDGES)
   <br/>
   -Insertar/Remover vertices y aristas(DONE)
   <br/>
