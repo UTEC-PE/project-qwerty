@@ -465,6 +465,65 @@ public:
 		}
 	}
 
+	bool isBipartito(N start) {
+		NodeSeq red, blue, notVisited;
+		notVisited = nodes;
+		for (ni = nodes.begin(); ni != nodes.end(); ni++){
+			if ((*ni)->getData() == start){
+				red.push_back(*ni);
+				notVisited.erase(ni);
+				break;
+			}
+		}
+		int i, r, b, lb, lr;
+		i = r = b = 0;
+		while (r+b != nodes.size()){
+			lb = b;
+			lr = r;
+			if (i%2 == 0){
+				for (ni = red.begin()+r; ni != red.end(); ni++){
+					for (ei = (*ni)->edges.begin(); ei != (*ni)->edges.end(); ei++){
+						if (find(red.begin(), red.end(), (*ei)-> nodes[1]) != red.end())
+							return false;
+						else if (find(blue.begin(), blue.end(), (*ei)-> nodes[1]) == blue.end()){
+							blue.push_back((*ei)->nodes[1]);
+							notVisited.erase(find(notVisited.begin(), notVisited.end(),(*ei)->nodes[1]));
+						}
+
+					}
+					r++;
+				}
+			}
+			else {
+				for (ni = blue.begin()+b; ni != blue.end(); ni++){
+					for (ei = (*ni)->edges.begin(); ei != (*ni)->edges.end(); ei++){
+						if (find(blue.begin(), blue.end(), (*ei)-> nodes[1]) != blue.end())
+							return false;
+						else if (find(red.begin(), red.end(), (*ei)-> nodes[1]) == red.end()){
+							red.push_back((*ei)->nodes[1]);
+							notVisited.erase(find(notVisited.begin(), notVisited.end(),(*ei)->nodes[1]));
+						}
+
+					}
+					b++;
+				}
+			}
+			if (lb == b && lr == r){
+				if (i%2 == 0){
+					red.push_back(notVisited[0]);
+					notVisited.erase(notVisited.begin());
+				}
+				else {
+					blue.push_back(notVisited[0]);
+					notVisited.erase(notVisited.begin());
+				}
+			}
+			else
+				i++;
+		}
+		return true;
+	}
+
 	~Graph(){
 		vector<node*>().swap(nodes);
 	}
