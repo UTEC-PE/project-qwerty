@@ -21,7 +21,6 @@ int main(int argc, char *argv[]) {
   Graph.print();
 
   cout << "--------------" << endl;
-  //cout << Graph.DFS('A');
   cout << Graph.fuerteConexo();
 
 

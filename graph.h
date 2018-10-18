@@ -543,24 +543,23 @@ public:
     }
 	}
 
-	void transpuesto(){
-		node* aux;
+	bool fuerteConexo(){
+		self transpuesto;
+		for(ni = nodes.begin(); ni != nodes.end(); ni++){
+			transpuesto.insertNode((*ni)->getData());
+		}
 		for(ni = nodes.begin(); ni != nodes.end(); ni++){
 			for(ei = (*ni)->edges.begin(); ei != (*ni)->edges.end(); ei++){
-				aux = (*ei) -> nodes[0];
-				(*ei) -> nodes[0] = (*ei) -> nodes [1];
-				(*ei) -> nodes [1] = aux;
+				cout << (*ei) -> nodes [1] -> getData()<< (*ni) -> getData() << endl;
+				transpuesto.insertEdge((*ei) -> nodes [1] -> getData(), (*ni) -> getData(), (*ei) ->getData(), 1);
 			}
 		}
-	}
-
-	bool fuerteConexo(){
-		if (DFS(nodes[0]->getData()).size() == nodes.size()){
+		cout << "Transpuesto: " << endl;
+		transpuesto.print();
+		if ((transpuesto.DFS(nodes[0]->getData()).size()==nodes.size()) && (DFS(nodes[0]->getData()).size()==nodes.size())){
 			return true;
 		}
-		else{
-			return false;
-		}
+		return false;
 	}
 
 	~Graph(){
