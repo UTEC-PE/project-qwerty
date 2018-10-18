@@ -360,6 +360,7 @@ public:
 					}
 				}
 			}
+			cout << (*ni)  -> getData() << salida << entrada << endl;
 			if (!salida && !entrada){
 				return false;
 			}
@@ -428,10 +429,12 @@ public:
 		}
 	}
 
-	void DFS(N vertice){
+	vector <N> DFS(N vertice){
 		vector<N> visitados;
 		vector<N> mystack;
+		vector<N> fuerteC;
 		mystack.insert(mystack.begin(),vertice);
+		fuerteC.push_back(vertice);
 		while (mystack.size() != 0){
 			for(ni = nodes.begin(); ni != nodes.end(); ni++){
 				if ((*ni) -> getData() == mystack.front()){
@@ -446,6 +449,7 @@ public:
 						if (find (visitados.begin(), visitados.end(), (*it)) == visitados.end()){
 							visitados.push_back((*ni)->getData());
 							visitados.push_back((*it));
+							fuerteC.push_back((*it));
 						}
 					}
 				}
@@ -463,6 +467,7 @@ public:
 			}
 			cout << endl;
 		}
+		return fuerteC;
 	}
 
 	bool isBipartito(N start) {
@@ -522,6 +527,40 @@ public:
 				i++;
 		}
 		return true;
+	}
+
+	void printT(){
+    for (ni=nodes.begin();ni!=nodes.end();++ni){
+      for(ei=(*ni)->edges.begin();ei!=(*ni)->edges.end();++ei){
+			  cout << (*ei)->nodes[0]->getData() << endl;
+        cout <<"peso : ";
+        cout << (*ei)->getData();
+        cout << ", nodo : ";
+        cout<<(*ei)->nodes[1]->getData();
+        cout <<" | " << endl;
+      }
+      cout <<endl;
+    }
+	}
+
+	void transpuesto(){
+		node* aux;
+		for(ni = nodes.begin(); ni != nodes.end(); ni++){
+			for(ei = (*ni)->edges.begin(); ei != (*ni)->edges.end(); ei++){
+				aux = (*ei) -> nodes[0];
+				(*ei) -> nodes[0] = (*ei) -> nodes [1];
+				(*ei) -> nodes [1] = aux;
+			}
+		}
+	}
+
+	bool fuerteConexo(){
+		if (DFS(nodes[0]->getData()).size() == nodes.size()){
+			return true;
+		}
+		else{
+			return false;
+		}
 	}
 
 	~Graph(){
