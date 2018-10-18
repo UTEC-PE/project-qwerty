@@ -1,4 +1,4 @@
-# Projecto Algoritmos
+# Proyecto Algoritmos
 Guillermo Franco
 <br/>
 Alessia Yi
@@ -11,7 +11,7 @@ Funciones a implementar:
   <br/>
   -Buscar vertices y aristas(DONE)
   <br/>
-  -Propiedades: Densidad (por tanto si el grafo es denso o disperso)(DONE), tipo y grado de vertices(~DONE), saber si es conexo(~DONE), fuertemente conexo y bipartito
+  -Propiedades: Densidad (por tanto si el grafo es denso o disperso)(DONE), tipo y grado de vertices(~DONE), saber si es conexo(~DONE), fuertemente conexo y bipartito(DONE)
   <br/>
   -MST: Prim(DONE) y Kruskal(DONE)
   <br/>
