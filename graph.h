@@ -183,16 +183,16 @@ public:
 			cout << "Kruskal MST: \n";
 			for (typename vector<edge*>::iterator it = kEdges.begin(); it != kEdges.end(); it++) {
 				node* nodo1 = (*it) -> nodes[0];
-				node* nodo2 = (*it) -> nodes[1];
-				nodo1 = set.findParent(nodo1);
-				nodo2 = set.findParent(nodo2);
+                		node* nodo2 = (*it) -> nodes[1];
+                		node* set1 = set.findParent(nodo1);
+                		node* set2 = set.findParent(nodo2);
 
-				if (nodo1 != nodo2) {
-					cout << (*nodo1).getData() << " - " << (*nodo2).getData() << "    (" << (*it) -> getData() << ")" << endl;
-					peso += (*it) -> getData();
-					set.mergeSet(nodo1, nodo2);
-					--n;
-				}
+                		if (set1 != set2) {
+                    			cout << (*nodo1).getData() << " - " << (*nodo2).getData() << "    (" << (*it) -> getData() << ")" << endl;
+                    			peso += (*it) -> getData();
+                    			set.mergeSet(set1, set2);
+                    			--n;
+                		}
 				if (n == 0)
 					break;
 			}
@@ -473,7 +473,7 @@ public:
 	bool isBipartito(N start) {
 		NodeSeq red, blue, notVisited;
 		notVisited = nodes;
-		for (ni = nodes.begin(); ni != nodes.end(); ni++){
+		for (ni = notVisited.begin(); ni != notVisited.end(); ni++){
 			if ((*ni)->getData() == start){
 				red.push_back(*ni);
 				notVisited.erase(ni);
