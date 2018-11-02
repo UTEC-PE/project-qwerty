@@ -19,7 +19,7 @@ Funciones a implementar:
   <br/>
   -Busquedas: BFS (Anchura) y DFS (Profundidad)
   <br/>
-  ## Segunda Entrega
+## Segunda Entrega
   <br/>
   -Dijkstra
   <br/>
