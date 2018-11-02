@@ -3,6 +3,8 @@ Guillermo Franco
 <br/>
 Alessia Yi
 <br/>
+## Primera Entrega
+<br/>
 Funciones a implementar:
 <br/>
   -Constructor y destructor
@@ -17,9 +19,15 @@ Funciones a implementar:
   <br/>
   -Busquedas: BFS (Anchura) y DFS (Profundidad)
   <br/>
+  ## Segunda Entrega
+  <br/>
   -Dijkstra
   <br/>
   -A*
   <br/>
   -Floyd Warshall
+   <br/>
+  -?
+   <br/>
+  -?
 
