@@ -16,4 +16,10 @@ Funciones a implementar:
   -MST: Prim y Kruskal
   <br/>
   -Busquedas: BFS (Anchura) y DFS (Profundidad)
+  <br/>
+  -Dijkstra
+  <br/>
+  -A*
+  <br/>
+  -Floyd Warshall
 
