@@ -4,31 +4,17 @@ Guillermo Franco
 Alessia Yi
 <br/>
 ## Primera Entrega
-<br/>
-Funciones a implementar:
-<br/>
-  -Constructor y destructor
-  <br/>
-  -Insertar/Remover vertices y aristas
-  <br/>
-  -Buscar vertices y aristas
-  <br/>
-  -Propiedades: Densidad (por tanto si el grafo es denso o disperso), tipo y grado de vertices, saber si es conexo, fuertemente conexo y bipartito
-  <br/>
-  -MST: Prim y Kruskal
-  <br/>
-  -Busquedas: BFS (Anchura) y DFS (Profundidad)
-<br/>
-```
+  * Constructor y destructor
+  * Insertar/Remover vertices y aristas
+  * Buscar vertices y aristas
+  * Propiedades: Densidad (por tanto si el grafo es denso o disperso), tipo y grado de vertices, saber si es conexo, fuertemente conexo y bipartito
+  * MST: Prim y Kruskal
+  * Busquedas: BFS (Anchura) y DFS (Profundidad)
+
 ## Segunda Entrega
-<br/>
-  -Dijkstra
-  <br/>
-  -A*
-  <br/>
-  -Floyd Warshall
-   <br/>
-  -?
-   <br/>
-  -?
-```
+
+  * Dijkstra
+  * A*
+  * Floyd Warshall
+  * ?
+  * ?
