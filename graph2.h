@@ -36,6 +36,9 @@ public:
 	Graph2():nodes(0){}
 
 	void pqq(){
+		for (ni=nodes.begin(); ni!=nodes.end(); ni++){
+			cout << *ni;
+		}
 		cout << "HOLA";
 	}
 
@@ -155,6 +158,108 @@ public:
 			cout << endl;
 		}
 	}
+
+	int sizes(){
+		int size=0;
+		for (ni = nodes.begin(); ni!= nodes.end(); ni++){
+			size+=1;
+		}
+		return size;
+	}
+
+	int* floydWarshall(){
+		int a = sizes();
+		const int size=5;
+		int INF=99999;
+		int pasos[size][size] = { {0,   INF,  6, 3, INF},
+	                        {3, 0,   INF, INF, INF},
+	                        {INF, INF, 0,   2, INF},
+	                        {INF, 1, 1, 0, INF},
+	                        {INF, 4, INF, 2, 0}
+	                      };
+    int camino[size][size];
+		int prueba[size][size];
+
+		for (ni = nodes.begin(); ni != nodes.end(); ni++){
+			sort((*ni)->edges.begin(),(*ni)->edges.end(),[](edge* edge1, edge* edge2){
+				return (edge1->node[1]->getData() < edge2->node[1]->getData());
+			});
+		}
+
+		for (int i = 0; i < size; i++){
+			for (int  j = 0; j < size; j++){
+				int row=0;
+				for (ni = nodes.begin(); ni != nodes.end(); ni++){
+					int col=0;
+					for (NodeSeq ni2=nodes.begin(); ni2!= nodes.end(); ni2++){
+						if (row==col){
+							prueba[row][col]=0;
+						}
+						else if ((*ni)->edges->node[1]->getData()==(*ni2)->edges->node[1]->getData()){
+							prueba[row][col]=(*ni)->edges->getData();
+						}
+						else{
+							prueba[row][col]=INF;
+						}
+					}
+					for(ei = (*ni)->edges.begin(); ei != (*ni)->edges.end(); ei++){
+						if (row==col){
+							prueba[row][col]=0;
+						}
+						else if (){
+
+						}
+						else{
+							prueba[row][col]=INF;
+						}
+						col++;
+					}
+					row++;
+				}
+			}
+		}
+
+    for (int i = 0; i < size; i++){
+			for (int j = 0; j < size; j++){
+				camino[i][j] = pasos[i][j];
+			}
+		}
+
+    for (int i = 0; i < size; i++){//fila y col
+      for (int j = 0; j < size; j++){//con el que se suma en la fila i
+        for (int k = 0; k < size; k++){//con el que se suma en la col i
+					if (camino[j][i] == INF || camino[i][k] == INF){//INF + x = INF, no evaluar INF
+						cout << "CONTINUE ";
+						continue;
+					}
+					if (camino[j][i] == 0 || camino[i][k] == 0){//no evaluar diagonal (0)
+						cout << "CONTINUE2 ";
+						continue;
+					}
+					cout << i << " " << k << " " << j << endl;
+					cout << "camino[j][i]" << camino[j][i] << endl;
+					cout << "camino[i][k]" << camino[i][k] << endl;
+					cout << "camino[j][k]" << camino[j][k] << endl;
+          if (camino[j][i] + camino[i][k] < camino[j][k]){
+						camino[j][k] = camino[j][i] + camino[i][k];
+						cout << "-----"<< endl;
+						}
+        }
+      }
+    }
+		cout << endl;
+    for (int i = 0; i < size; i++){
+        for (int j = 0; j < size; j++){
+            if (camino[i][j] == INF)
+                cout << "   " << "INF";
+            else
+                cout << "   " << camino[i][j];
+        }
+        cout <<  endl;
+    }
+		cout << "AAAA" << a;
+	}
+
 
 	~Graph2(){
 		vector<node*>().swap(nodes);
