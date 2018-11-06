@@ -25,9 +25,23 @@ int main(int argc, char *argv[]) {
   Graph.insertEdge('E', 'B', 4, 1);
   Graph.insertEdge('E', '4', 2, 1);
 
-  Graph.floydWarshall();
-
-  Graph.pqq();
+  auto mymatrices = Graph.floydWarshall();
+  for (int i = 0; i < 5; i++){
+      for (int j = 0; j < 5; j++){
+          if (mymatrices.first[i][j] == INF)
+              cout << "   " << "INF";
+          else
+              cout << "   " << mymatrices.first[i][j];
+      }
+      cout <<  endl;
+  }
+  cout << endl;
+  for (int i = 0; i < 5; i++){
+      for (int j = 0; j < 5; j++){
+            cout << "   " << mymatrices.second[i][j];
+      }
+      cout <<  endl;
+  }
 
 
   return EXIT_SUCCESS;
