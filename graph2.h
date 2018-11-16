@@ -1,7 +1,7 @@
 #include <iostream>
 #include <vector>
-#include <array>
 #include <list>
+#include <iomanip>
 #include <utility> // pair
 #include <algorithm>
 
@@ -163,54 +163,34 @@ public:
 		}
 	}
 
-	int sizes(){
-		int size=0;
-		for (ni = nodes.begin(); ni!= nodes.end(); ni++){
-			size+=1;
-		}
-		return size;
-	}
-	//static const int size=5;
 	pair<vector<vector<int>>, vector<vector<char>>> floydWarshall(){
 		const int size=nodes.size();
-		vector<vector<int>> grafo {{0,   INF,  6, 3, INF},
-	                        {3, 0,   INF, INF, INF},
-	                        {INF, INF, 0,   2, INF},
-	                        {INF, 1, 1, 0, INF},
-	                        {INF, 4, INF, 2, 0}
-	                      };
-		vector<vector<int>> camino(size, vector<int>(size));
-		vector<vector<int>> prueba(size, vector<int>(size));
-		vector<vector<char>> pasos(size, vector<char>(size));
+		vector<vector<int>> camino(size, vector<int>(size));//numeros
+		vector<vector<int>> grafo(size, vector<int>(size));//intento de grafo
+		vector<vector<char>> pasos(size, vector<char>(size));//Letras
 
-		// for (ni = nodes.begin(); ni != nodes.end(); ni++){
-		// 	sort((*ni)->edges.begin(),(*ni)->edges.end(),[](edge* edge1, edge* edge2){
-		// 		return (edge1->node[1]->getData() < edge2->node[1]->getData());
-		// 	});
-		// }
-		//
-		// for (int i = 0; i < size; i++){
-		// 	for (int  j = 0; j < size; j++){
-		// 		int row=0;
-		// 		for (ni = nodes.begin(); ni != nodes.end(); ni++){
-		// 			int col=0;
-		// 			for (NodeSeq ni2=nodes.begin(); ni2!= nodes.end(); ni2++){
-		// 				if (row==col){
-		// 					prueba[row][col]=0;
-		// 				}
-		// 				else if ((*ni)->edges->node[1]->getData()==(*ni2)->edges->node[1]->getData()){
-		// 					prueba[row][col]=(*ni)->edges->getData();
-		// 				}
-		// 				else{
-		// 					prueba[row][col]=INF;
-		// 				}
-		// 				row++;
-		// 			}
-		// 		}
-		// 	}
-		// }
-
-    for (int i = 0; i < size; i++){
+		int row=0;
+		for (ni = nodes.begin(); ni != nodes.end(); ni++){
+			int col=0;
+			for (NodeIte ni2= nodes.begin(); ni2 != nodes.end(); ni2++){
+				for (ei = (*ni)->edges.begin(); ei != (*ni)->edges.end(); ei++){
+					if ((*ni)->getData() == (*ni2)->getData()){
+						grafo[row][col]=0;
+					}
+					else if ((*ni2)->getData()==(*ei)->nodes[1]->getData()){
+						grafo[row][col]=(*ei)->getData();
+						break;
+					}
+					else{
+						grafo[row][col]=INF;
+					}
+				}
+				col++;
+			}
+			row++;
+		}
+//-------------------------------------------------------
+    for (int i = 0; i < size; i++){//copiar el grafo a camino
 			for (int j = 0; j < size; j++){
 				camino[i][j] = grafo[i][j];
 			}
@@ -219,7 +199,7 @@ public:
 		int i=0;
 		for (ni = nodes.begin(); ni != nodes.end(); ni++){
 			for (int j = 0; j < size; j++){
-				if (i == j){
+				if (i == j){//diagonal de pasos nula
 					pasos[i][j]='-';
 				}
 				else{
