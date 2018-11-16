@@ -1,10 +1,14 @@
 #include <iostream>
 #include <vector>
 #include <list>
+#include <iomanip>
+#include <utility> // pair
 #include <algorithm>
 
 #include "node.h"
 #include "edge.h"
+
+#define INF 99999
 
 using namespace std;
 
@@ -36,6 +40,9 @@ public:
 	Graph2():nodes(0){}
 
 	void pqq(){
+		for (ni=nodes.begin(); ni!=nodes.end(); ni++){
+			cout << *ni;
+		}
 		cout << "HOLA";
 	}
 
@@ -155,6 +162,74 @@ public:
 			cout << endl;
 		}
 	}
+
+	pair<vector<vector<int>>, vector<vector<char>>> floydWarshall(){
+		const int size=nodes.size();
+		vector<vector<int>> camino(size, vector<int>(size));//numeros
+		vector<vector<int>> grafo(size, vector<int>(size));//intento de grafo
+		vector<vector<char>> pasos(size, vector<char>(size));//Letras
+
+		int row=0;
+		for (ni = nodes.begin(); ni != nodes.end(); ni++){
+			int col=0;
+			for (NodeIte ni2= nodes.begin(); ni2 != nodes.end(); ni2++){
+				for (ei = (*ni)->edges.begin(); ei != (*ni)->edges.end(); ei++){
+					if ((*ni)->getData() == (*ni2)->getData()){
+						grafo[row][col]=0;
+					}
+					else if ((*ni2)->getData()==(*ei)->nodes[1]->getData()){
+						grafo[row][col]=(*ei)->getData();
+						break;
+					}
+					else{
+						grafo[row][col]=INF;
+					}
+				}
+				col++;
+			}
+			row++;
+		}
+//-------------------------------------------------------
+    for (int i = 0; i < size; i++){//copiar el grafo a camino
+			for (int j = 0; j < size; j++){
+				camino[i][j] = grafo[i][j];
+			}
+		}
+
+		int i=0;
+		for (ni = nodes.begin(); ni != nodes.end(); ni++){
+			for (int j = 0; j < size; j++){
+				if (i == j){//diagonal de pasos nula
+					pasos[i][j]='-';
+				}
+				else{
+					pasos[j][i]=(*ni)->getData();
+				}
+			}
+			i++;
+		}
+
+		i=0;
+    for (ni = nodes.begin(); ni != nodes.end(); ni++){//fila y col
+      for (int j = 0; j < size; j++){//con el que se suma en la fila i
+        for (int k = 0; k < size; k++){//con el que se suma en la col i
+					if (camino[j][i] == INF || camino[i][k] == INF){//INF + x = INF, no evaluar INF
+						continue;
+					}
+					if (camino[j][i] == 0 || camino[i][k] == 0){//no evaluar diagonal (0)
+						continue;
+					}
+          if (camino[j][i] + camino[i][k] < camino[j][k]){
+						camino[j][k] = camino[j][i] + camino[i][k];
+						pasos[j][k] = (*ni) -> getData();
+					}
+        }
+      }
+			i++;
+    }
+		return make_pair(camino, pasos);
+	}
+
 
 	~Graph2(){
 		vector<node*>().swap(nodes);
