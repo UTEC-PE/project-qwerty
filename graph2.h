@@ -4,6 +4,7 @@
 #include <iomanip>
 #include <utility> // pair
 #include <algorithm>
+#include <map>
 
 #include "node.h"
 #include "edge.h"
@@ -230,6 +231,64 @@ public:
 		return make_pair(camino, pasos);
 	}
 
+	map<N,E> bellMan(char initial){
+		int iteraciones=nodes.size()-1;
+		vector<N> mystack;
+		vector<N> visitados;
+		bool change=false;
+		int count=0;
+
+
+		map<N,E> grafo;
+
+		for (ni=nodes.begin(); ni!=nodes.end(); ni++){
+			if ((*ni)->getData()==initial){
+				grafo.insert(pair<char, int> ((*ni)->getData(),0));
+			}
+			else{
+				grafo.insert(pair<char, int> ((*ni)->getData(),INF));
+			}
+		}
+
+		for (int i=0; i<iteraciones; i++){
+			count+=1;
+			mystack.push_back(initial);
+			visitados.push_back(initial);
+			while(!mystack.empty()){
+				change=false;
+				for (ni=nodes.begin(); ni!=nodes.end(); ni++){
+					if ((*ni)->getData()==mystack.front()){
+						mystack.erase(mystack.begin());
+						for (ei = (*ni)->edges.begin(); ei != (*ni)->edges.end(); ei++){
+							if (find (mystack.begin(), mystack.end(), (*ei) -> nodes[1] -> getData()) == mystack.end() &&
+							find (visitados.begin(), visitados.end(), (*ei) -> nodes[1] -> getData()) == visitados.end()){
+								mystack.push_back((*ei) -> nodes[1] -> getData());
+							}
+							if (grafo[(*ei)->nodes[1]->getData()]>grafo[(*ni)->getData()]+(*ei)->getData()){
+								grafo[(*ei)->nodes[1]->getData()]=grafo[(*ni)->getData()]+(*ei)->getData();
+								change=true;
+							}
+						}
+						for (typename vector<N>::iterator it = mystack.begin(); it != mystack.end(); ++it){
+							if (find (visitados.begin(), visitados.end(), (*it)) == visitados.end()){
+								visitados.push_back((*it));
+							}
+						}
+					}
+				}
+			}
+			visitados.clear();
+			if (!change && count>1){
+				break;
+			}
+		}
+		// for (auto& t : grafo){
+		// 	cout << t.first << " "<< t.second << "\n";
+		// }
+
+		return grafo;
+
+	}
 
 	~Graph2(){
 		vector<node*>().swap(nodes);

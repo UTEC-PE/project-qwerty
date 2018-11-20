@@ -13,15 +13,16 @@ int main(int argc, char *argv[]) {
   Graph.insertNode('C');
   Graph.insertNode('D');
   Graph.insertNode('E');
+  Graph.insertNode('S');
 
-  Graph.insertEdge('A', 'C', 6, 1);
-  Graph.insertEdge('B', 'A', 3, 1);
-  Graph.insertEdge('A', 'D', 3, 1);
-  Graph.insertEdge('C', 'D', 2, 1);
-  Graph.insertEdge('D', 'C', 1, 1);
-  Graph.insertEdge('D', 'B', 1, 1);
-  Graph.insertEdge('E', 'B', 4, 1);
-  Graph.insertEdge('E', '4', 2, 1);
+  Graph.insertEdge('S', 'A', 10, 1);
+  Graph.insertEdge('S', 'E', 8, 1);
+  Graph.insertEdge('E', 'D', 1, 1);
+  Graph.insertEdge('D', 'A', -4, 1);
+  Graph.insertEdge('A', 'C', 2, 1);
+  Graph.insertEdge('D', 'C', -1, 1);
+  Graph.insertEdge('C', 'B', -2, 1);
+  Graph.insertEdge('B', 'A', 1, 1);
 
   auto mymatrices = Graph.floydWarshall();
   for (int i = 0; i < 5; i++){
@@ -40,6 +41,11 @@ int main(int argc, char *argv[]) {
       }
       cout <<  endl;
   }
+  auto bellman = Graph.bellMan('S');
+  for (auto& t : bellman){
+  	cout << t.first << " "<< t.second << "\n";
+  }
+
 
 
   return EXIT_SUCCESS;
