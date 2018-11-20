@@ -289,7 +289,7 @@ public:
 		return grafo;
 
 	}
-	
+
 	map<N,E> Dijkstra(N source){
         map<N,E> distancias;
         NodeSeq q;
@@ -321,6 +321,7 @@ public:
             q.erase(q.begin());
         }
         return distancias;
+		}
 
 	~Graph2(){
 		vector<node*>().swap(nodes);
