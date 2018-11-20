@@ -4,17 +4,17 @@ Guillermo Franco
 Alessia Yi
 <br/>
 ## Primera Entrega
-  - [ ] Constructor y destructor
-  - [ ] Insertar/Remover vertices y aristas
-  - [ ] Buscar vertices y aristas
-  - [ ] Propiedades: Densidad (por tanto si el grafo es denso o disperso), tipo y grado de vertices, saber si es conexo, fuertemente conexo y bipartito
-  - [ ] MST: Prim y Kruskal
-  - [ ] Busquedas: BFS (Anchura) y DFS (Profundidad)
+  - [x] Constructor y destructor
+  - [x] Insertar/Remover vertices y aristas
+  - [x] Buscar vertices y aristas
+  - [x] Propiedades: Densidad (por tanto si el grafo es denso o disperso), tipo y grado de vertices, saber si es conexo, fuertemente conexo y bipartito
+  - [x] MST: Prim y Kruskal
+  - [x] Busquedas: BFS (Anchura) y DFS (Profundidad)
 
 ## Segunda Entrega
 
-  - [ ] Dijkstra
+  - [x] Dijkstra
   - [ ] A*
-  - [ ] Floyd Warshall
+  - [x] Floyd Warshall
   - [ ] Greedy BFS
-  - [ ] Bellman Ford
+  - [x] Bellman Ford
