@@ -289,6 +289,38 @@ public:
 		return grafo;
 
 	}
+	
+	map<N,E> Dijkstra(N source){
+        map<N,E> distancias;
+        NodeSeq q;
+        int sourcePos = 0;
+        for (int i = 0; i < nodes.size(); i++){
+            if (source == nodes[i]->getData()) {
+                distancias[source] = 0;
+                sourcePos = i;
+            }
+            else
+                distancias[nodes[i]->getData()] = 2147483647;
+        }
+        for (ei = (nodes[sourcePos])->edges.begin(); ei != (nodes[sourcePos])->edges.end(); ei++) {
+            if ((*ei)->getData() < distancias[(*ei)->nodes[1]->getData()])
+                distancias[(*ei)->nodes[1]->getData()] = (*ei)->getData();
+            q.push_back((*ei)->nodes[1]);
+        }
+        while (!q.empty()){
+            sort(q.begin(),q.end(),[&distancias](node* nodo1, node* nodo2){
+                return (distancias[nodo1->getData()] < distancias[nodo2->getData()]);
+            });
+            for (ei = q[0]->edges.begin(); ei != q[0]->edges.end(); ei++) {
+                if (distancias[(*ei)->nodes[1]->getData()] == 2147483647)
+                    q.push_back((*ei)->nodes[1]);
+                if (distancias[q[0]->getData()] + (*ei)->getData() < distancias[(*ei)->nodes[1]->getData()]){
+                    distancias[(*ei)->nodes[1]->getData()] = distancias[q[0]->getData()] + (*ei)->getData();
+                }
+            }
+            q.erase(q.begin());
+        }
+        return distancias;
 
 	~Graph2(){
 		vector<node*>().swap(nodes);
