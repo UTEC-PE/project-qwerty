@@ -337,7 +337,7 @@ public:
 		return distancias;
 	}
 		
-	E Astar(N source, N final){
+	pair<E,list<N>> Astar(N source, N final){
 		map<N,double> h;
 		node* nFinal, *nSource;
 		bool t1 = false, t2 = false;
@@ -375,11 +375,22 @@ public:
 			}
 		    }
 		    q.erase(q.begin());
+		    if (q.empty()){
+                	list<N> path;
+                	path.push_back(source);
+                	return make_pair(2147483647,path);
+            	    }
 		}
-		if (q.empty())
-		    return INF;
-		else
-		    return distancias[final].first;
+		list<N> path;
+        	N* ptr;
+        	path.push_front(final);
+        	ptr = &(distancias[final].second);
+       		while(distancias[*ptr].second != *ptr){
+            	    path.push_front(*ptr);
+            	    ptr = &(distancias[*ptr].second);
+        	}
+        	path.push_front(source);
+        	return make_pair(distancias[final].first,path);
 	}
 
 	~Graph2(){
