@@ -14,7 +14,7 @@ Alessia Yi
 ## Segunda Entrega
 
   - [x] Dijkstra
-  - [ ] A*
+  - [x] A*
   - [x] Floyd Warshall
   - [ ] Greedy BFS
   - [x] Bellman Ford

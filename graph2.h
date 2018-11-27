@@ -5,11 +5,12 @@
 #include <utility> // pair
 #include <algorithm>
 #include <map>
+#include <cmath>
 
 #include "node.h"
 #include "edge.h"
 
-#define INF 99999
+#define INF 2147483647
 
 using namespace std;
 
@@ -51,6 +52,19 @@ public:
 		if (!exists){
 			node* nodo=new node(name, x, y);
 			nodes.push_back(nodo);
+		}
+	}
+	
+	void insertNode(N name, double X, double Y){
+		bool exists=false;
+		for (ni=nodes.begin(); ni!=nodes.end(); ni++){
+		    if (name==(*ni) -> getData()){
+			exists=true;
+		    }
+		}
+		if (!exists){
+		    node* nodo=new node(name,X,Y);
+		    nodes.push_back(nodo);
 		}
 	}
 
@@ -285,37 +299,93 @@ public:
 	}
 
 	map<N,E> Dijkstra(N source){
-        map<N,E> distancias;
-        NodeSeq q;
-        int sourcePos = 0;
-        for (int i = 0; i < nodes.size(); i++){
-            if (source == nodes[i]->getData()) {
-                distancias[source] = 0;
-                sourcePos = i;
-            }
-            else
-                distancias[nodes[i]->getData()] = 2147483647;
-        }
-        for (ei = (nodes[sourcePos])->edges.begin(); ei != (nodes[sourcePos])->edges.end(); ei++) {
-            if ((*ei)->getData() < distancias[(*ei)->nodes[1]->getData()])
-                distancias[(*ei)->nodes[1]->getData()] = (*ei)->getData();
-            q.push_back((*ei)->nodes[1]);
-        }
-        while (!q.empty()){
-            sort(q.begin(),q.end(),[&distancias](node* nodo1, node* nodo2){
-                return (distancias[nodo1->getData()] < distancias[nodo2->getData()]);
-            });
-            for (ei = q[0]->edges.begin(); ei != q[0]->edges.end(); ei++) {
-                if (distancias[(*ei)->nodes[1]->getData()] == 2147483647)
-                    q.push_back((*ei)->nodes[1]);
-                if (distancias[q[0]->getData()] + (*ei)->getData() < distancias[(*ei)->nodes[1]->getData()]){
-                    distancias[(*ei)->nodes[1]->getData()] = distancias[q[0]->getData()] + (*ei)->getData();
-                }
-            }
-            q.erase(q.begin());
-        }
-        return distancias;
+		map<N,E> distancias;
+		NodeSeq q;
+		int sourcePos = 0;
+		for (int i = 0; i < nodes.size(); i++){
+		    if (source == nodes[i]->getData()) {
+			distancias[source] = 0;
+			sourcePos = i;
+		    }
+		    else
+			distancias[nodes[i]->getData()] = INF;
 		}
+		for (ei = (nodes[sourcePos])->edges.begin(); ei != (nodes[sourcePos])->edges.end(); ei++) {
+		    if ((*ei)->getData() < distancias[(*ei)->nodes[1]->getData()])
+			distancias[(*ei)->nodes[1]->getData()] = (*ei)->getData();
+		    q.push_back((*ei)->nodes[1]);
+		}
+		while (!q.empty()){
+		    sort(q.begin(),q.end(),[&distancias](node* nodo1, node* nodo2){
+			return (distancias[nodo1->getData()] < distancias[nodo2->getData()]);
+		    });
+		    for (ei = q[0]->edges.begin(); ei != q[0]->edges.end(); ei++) {
+			if (distancias[(*ei)->nodes[1]->getData()] == INF)
+			    q.push_back((*ei)->nodes[1]);
+			if (distancias[q[0]->getData()] + (*ei)->getData() < distancias[(*ei)->nodes[1]->getData()]){
+			    distancias[(*ei)->nodes[1]->getData()] = distancias[q[0]->getData()] + (*ei)->getData();
+			}
+		    }
+		    q.erase(q.begin());
+		}
+		return distancias;
+	}
+		
+	pair<E,list<N>> Astar(N source, N final){
+		map<N,double> h;
+		node* nFinal, *nSource;
+		bool t1 = false, t2 = false;
+		for (ni = nodes.begin(); ni != nodes.end(); ++ni) {
+		    if ((*ni)->getData() == final) {
+			nFinal = *ni;
+			t1 = true;
+		    }
+		    if ((*ni)->getData() == source){
+			nSource = *ni;
+			t2 = true;
+		    }
+		    if (t1 && t2)
+			break;
+		}
+		for (ni = nodes.begin(); ni != nodes.end(); ++ni) {
+		    double n = sqrt(pow((*ni)->getX() - nFinal->getX(),2) + pow((*ni)->getY() - nFinal->getY(),2));
+		    h[(*ni)->getData()] = n; //Euclideano
+		}
+		map<N,pair<E,N>> distancias;
+		NodeSeq q;
+		q.push_back(nSource);
+		distancias[source] = make_pair(0,source);
+		while(distancias.find(final) == distancias.end()){
+		    sort(q.begin(),q.end(),[&distancias,&h](node* nodo1, node* nodo2){
+			return (distancias[nodo1->getData()].first + h[nodo1->getData()] < distancias[nodo2->getData()].first + h[nodo2->getData()]);
+		    });
+		    for (ei = q[0]->edges.begin(); ei != q[0]->edges.end(); ++ei){
+			if (distancias.find((*ei)-> nodes[1]->getData()) == distancias.end() ){
+			    q.push_back((*ei)->nodes[1]);
+			    distancias[(*ei)->nodes[1]->getData()] = make_pair((*ei)->getData()+distancias[q[0]->getData()].first,q[0]->getData());
+			}
+			else if (distancias[(*ei)->nodes[1]->getData()].first > (*ei)->getData()+distancias[q[0]->getData()].first){
+			    distancias[(*ei)->nodes[1]->getData()] = make_pair((*ei)->getData()+distancias[q[0]->getData()].first,q[0]->getData());
+			}
+		    }
+		    q.erase(q.begin());
+		    if (q.empty()){
+                	list<N> path;
+                	path.push_back(source);
+                	return make_pair(2147483647,path);
+            	    }
+		}
+		list<N> path;
+        	N* ptr;
+        	path.push_front(final);
+        	ptr = &(distancias[final].second);
+       		while(distancias[*ptr].second != *ptr){
+            	    path.push_front(*ptr);
+            	    ptr = &(distancias[*ptr].second);
+        	}
+        	path.push_front(source);
+        	return make_pair(distancias[final].first,path);
+	}
 
 	vector< pair <N,E> > greedyBFS(N initial, N final){
 		vector< pair <N,E> > visitados;
