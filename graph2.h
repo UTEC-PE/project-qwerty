@@ -54,7 +54,7 @@ public:
 			nodes.push_back(nodo);
 		}
 	}
-	
+
 	void insertNode(N name, double X, double Y){
 		bool exists=false;
 		for (ni=nodes.begin(); ni!=nodes.end(); ni++){
@@ -330,7 +330,7 @@ public:
 		}
 		return distancias;
 	}
-		
+
 	pair<E,list<N>> Astar(N source, N final){
 		map<N,double> h;
 		node* nFinal, *nSource;
@@ -385,60 +385,6 @@ public:
         	}
         	path.push_front(source);
         	return make_pair(distancias[final].first,path);
-	}
-	
-	vector< pair <N,E> > greedyBFS(N initial, N final){
-		vector< pair <N,E> > visitados;
-		//map<N,E> visitados;
-		map <E,N> edges;
-
-		edges.insert(make_pair(0, initial));
-
-		while (!edges.empty()){
-			for (ni=nodes.begin(); ni!=nodes.end(); ni++){
-				if ((*ni)->getData()==edges.begin()->second){
-					visitados.push_back(make_pair(edges.begin()->second, edges.begin()->first));
-					edges.erase(edges.begin());
-					for (ei=(*ni) -> edges.begin(); ei!=(*ni) -> edges.end(); ei++){
-						bool einit=false;
-						bool vinit=false;
-						for (auto const& it : edges){
-							if ((*ei) -> nodes[1] -> getData()==it.second){
-								einit=true;
-							}
-						}
-						for (auto const& it : visitados){
-							if ((*ei) -> nodes[1] -> getData()==it.first){
-								vinit=true;
-							}
-						}
-						if ((*ei) -> nodes[1] -> getData()==final){
-							visitados.push_back(make_pair(final, (*ei)->getData()));
-							for (int i=visitados.size()-1; i>0; i--){
-								for (NodeIte ni2=nodes.begin(); ni2!=nodes.end(); ni2++){
-									if (visitados[i-1].first==(*ni2)->getData()){
-										bool conecta=false;
-										for (EdgeIte ei2=(*ni2) -> edges.begin(); ei2!=(*ni2) -> edges.end(); ei2++){
-											if (visitados[i].first==(*ei2)->nodes[1]->getData() && (*ei2)->getData()==visitados[i].second){
-												conecta=true;
-											}
-										}
-										if (!conecta){
-											visitados.erase(visitados.begin()+i-1);
-										}
-									}
-								}
-							}
-							return visitados;
-						}
-						if (!einit && !vinit){
-							edges.insert(make_pair((*ei)->getData(), (*ei)->nodes[1]->getData()));
-						}
-					}
-				}
-			}
-		}
-		return visitados;
 	}
 
 	vector< pair <N,E> > greedyBFS(N initial, N final){
