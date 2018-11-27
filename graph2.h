@@ -33,21 +33,15 @@ public:
 	typedef typename EdgeSeq::iterator EdgeIte;
 
 private:
-	NodeSeq nodes;
+
 	NodeIte ni;
 	EdgeIte ei;
 
 public:
+	NodeSeq nodes;
 	Graph2():nodes(0){}
 
-	void pqq(){
-		for (ni=nodes.begin(); ni!=nodes.end(); ni++){
-			cout << *ni;
-		}
-		cout << "HOLA";
-	}
-
-	void insertNode(N name){
+	void insertNode(N name, double x=0, double y=0){
 		bool exists=false;
 		for (ni=nodes.begin(); ni!=nodes.end(); ni++){
 			if (name==(*ni) -> getData()){
@@ -55,7 +49,7 @@ public:
 			}
 		}
 		if (!exists){
-			node* nodo=new node(name);
+			node* nodo=new node(name, x, y);
 			nodes.push_back(nodo);
 		}
 	}
@@ -164,11 +158,11 @@ public:
 		}
 	}
 
-	pair<vector<vector<int>>, vector<vector<char>>> floydWarshall(){
+	pair<vector<vector<E>>, vector<vector<N>>> floydWarshall(){
 		const int size=nodes.size();
-		vector<vector<int>> camino(size, vector<int>(size));//numeros
-		vector<vector<int>> grafo(size, vector<int>(size));//intento de grafo
-		vector<vector<char>> pasos(size, vector<char>(size));//Letras
+		vector<vector<E>> camino(size, vector<E>(size));//numeros
+		vector<vector<E>> grafo(size, vector<E>(size));//intento de grafo
+		vector<vector<N>> pasos(size, vector<N>(size));//Letras
 
 		int row=0;
 		for (ni = nodes.begin(); ni != nodes.end(); ni++){
@@ -231,7 +225,7 @@ public:
 		return make_pair(camino, pasos);
 	}
 
-	map<N,E> bellMan(char initial){
+	map<N,E> bellMan(N initial){
 		int iteraciones=nodes.size()-1;
 		vector<N> mystack;
 		vector<N> visitados;
@@ -243,10 +237,10 @@ public:
 
 		for (ni=nodes.begin(); ni!=nodes.end(); ni++){
 			if ((*ni)->getData()==initial){
-				grafo.insert(pair<char, int> ((*ni)->getData(),0));
+				grafo.insert(pair<N, E> ((*ni)->getData(),0));
 			}
 			else{
-				grafo.insert(pair<char, int> ((*ni)->getData(),INF));
+				grafo.insert(pair<N, E> ((*ni)->getData(),INF));
 			}
 		}
 
@@ -322,6 +316,60 @@ public:
         }
         return distancias;
 		}
+
+	vector< pair <N,E> > greedyBFS(N initial, N final){
+		vector< pair <N,E> > visitados;
+		//map<N,E> visitados;
+		map <E,N> edges;
+
+		edges.insert(make_pair(0, initial));
+
+		while (!edges.empty()){
+			for (ni=nodes.begin(); ni!=nodes.end(); ni++){
+				if ((*ni)->getData()==edges.begin()->second){
+					visitados.push_back(make_pair(edges.begin()->second, edges.begin()->first));
+					edges.erase(edges.begin());
+					for (ei=(*ni) -> edges.begin(); ei!=(*ni) -> edges.end(); ei++){
+						bool einit=false;
+						bool vinit=false;
+						for (auto const& it : edges){
+							if ((*ei) -> nodes[1] -> getData()==it.second){
+								einit=true;
+							}
+						}
+						for (auto const& it : visitados){
+							if ((*ei) -> nodes[1] -> getData()==it.first){
+								vinit=true;
+							}
+						}
+						if ((*ei) -> nodes[1] -> getData()==final){
+							visitados.push_back(make_pair(final, (*ei)->getData()));
+							for (int i=visitados.size()-1; i>0; i--){
+								for (NodeIte ni2=nodes.begin(); ni2!=nodes.end(); ni2++){
+									if (visitados[i-1].first==(*ni2)->getData()){
+										bool conecta=false;
+										for (EdgeIte ei2=(*ni2) -> edges.begin(); ei2!=(*ni2) -> edges.end(); ei2++){
+											if (visitados[i].first==(*ei2)->nodes[1]->getData() && (*ei2)->getData()==visitados[i].second){
+												conecta=true;
+											}
+										}
+										if (!conecta){
+											visitados.erase(visitados.begin()+i-1);
+										}
+									}
+								}
+							}
+							return visitados;
+						}
+						if (!einit && !vinit){
+							edges.insert(make_pair((*ei)->getData(), (*ei)->nodes[1]->getData()));
+						}
+					}
+				}
+			}
+		}
+		return visitados;
+	}
 
 	~Graph2(){
 		vector<node*>().swap(nodes);
