@@ -42,7 +42,7 @@ public:
 	NodeSeq nodes;
 	Graph2():nodes(0){}
 
-	void insertNode(N name, double x=0, double y=0){
+	void insertNode(N name){
 		bool exists=false;
 		for (ni=nodes.begin(); ni!=nodes.end(); ni++){
 			if (name==(*ni) -> getData()){
@@ -50,7 +50,7 @@ public:
 			}
 		}
 		if (!exists){
-			node* nodo=new node(name, x, y);
+			node* nodo=new node(name);
 			nodes.push_back(nodo);
 		}
 	}
