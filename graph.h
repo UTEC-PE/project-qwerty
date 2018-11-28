@@ -550,7 +550,7 @@ public:
 		}
 		for(ni = nodes.begin(); ni != nodes.end(); ni++){
 			for(ei = (*ni)->edges.begin(); ei != (*ni)->edges.end(); ei++){
-				cout << (*ei) -> nodes [1] -> getData()<< (*ni) -> getData() << endl;
+				// cout << (*ei) -> nodes [1] -> getData()<< (*ni) -> getData() << endl;
 				transpuesto.insertEdge((*ei) -> nodes [1] -> getData(), (*ni) -> getData(), (*ei) ->getData(), 1);
 			}
 		}

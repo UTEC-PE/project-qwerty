@@ -3,17 +3,18 @@ Guillermo Franco
 <br/>
 Alessia Yi
 <br/>
-Funciones a implementar:
-<br/>
-  -Constructor y destructor
-  <br/>
-  -Insertar/Remover vertices y aristas
-  <br/>
-  -Buscar vertices y aristas
-  <br/>
-  -Propiedades: Densidad (por tanto si el grafo es denso o disperso), tipo y grado de vertices, saber si es conexo, fuertemente conexo y bipartito
-  <br/>
-  -MST: Prim y Kruskal
-  <br/>
-  -Busquedas: BFS (Anchura) y DFS (Profundidad)
+## Primera Entrega
+  - [x] Constructor y destructor
+  - [x] Insertar/Remover vertices y aristas
+  - [x] Buscar vertices y aristas
+  - [x] Propiedades: Densidad (por tanto si el grafo es denso o disperso), tipo y grado de vertices, saber si es conexo, fuertemente conexo y bipartito
+  - [x] MST: Prim y Kruskal
+  - [x] Busquedas: BFS (Anchura) y DFS (Profundidad)
 
+## Segunda Entrega
+
+  - [x] Dijkstra
+  - [x] A*
+  - [x] Floyd Warshall
+  - [ ] Greedy BFS
+  - [x] Bellman Ford

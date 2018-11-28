@@ -12,9 +12,23 @@ class Node {
     EdgeSeq edges;
 
     Node(N value):data(value){}
+  
+    Node(N name, double x, double y){
+        data = name;
+        this -> x = x;
+        this -> y = y;
+    }
 
     N getData(){
       return data;
+    }
+  
+    double getX(){
+        return x;
+    }
+
+    double getY(){
+        return y;
     }
 
   private:
