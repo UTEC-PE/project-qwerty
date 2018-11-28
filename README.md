@@ -16,5 +16,5 @@ Alessia Yi
   - [x] Dijkstra
   - [x] A*
   - [x] Floyd Warshall
-  - [ ] Greedy BFS
+  - [X] Greedy BFS
   - [x] Bellman Ford
